@@ -42,6 +42,7 @@ IdeaFleck is an idea-management reference board built with a **Next.js** front-e
 - `docs/competitor-research.md` — competitor research notes.
 - `docs/stack-plan.md` — architecture intent and data flows.
 - `docs/deployment.md` — Render-specific guidance.
+- `docs/sprint-summary.md` — Sprint 1 worklog, tests, and deployment readiness recap.
 
 ## Next Steps
 - Wire user stories to idea stages (validation, build, launch) via webhooks or internal automation.
