@@ -1,0 +1,18 @@
+# Root ignore
+node_modules/
+.idea/
+.vscode/
+.DS_Store
+
+# Frontend build artifacts
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
+
+# Backend artifacts
+backend/node_modules/
+backend/data/
+backend/.env
+
+# Logs
+*.log

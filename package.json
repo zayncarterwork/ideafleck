@@ -1,0 +1,14 @@
+{
+  "name": "ideafleck",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm --prefix frontend run dev\" \"npm --prefix backend run dev\"",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend run start",
+    "test": "npm --prefix backend run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}

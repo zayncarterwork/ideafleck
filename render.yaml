@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: ideafleck-frontend
+    env: node
+    plan: free
+    region: oregon
+    root: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE_URL
+        value: https://ideafleck-api.onrender.com
+  - type: web
+    name: ideafleck-api
+    env: node
+    plan: free
+    region: oregon
+    root: backend
+    buildCommand: npm install
+    startCommand: npm run start
+    healthCheckPath: /api/ideas
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://ideafleck-frontend.onrender.com
