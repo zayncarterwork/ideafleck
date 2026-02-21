@@ -63,6 +63,15 @@ const stageMetadata = {
 
 const stageOrder = ["new", "validate", "build", "launch"] as const;
 
+type StageKey = (typeof stageOrder)[number];
+
+type FormState = {
+  title: string;
+  description: string;
+  domain: string;
+  stage: StageKey;
+};
+
 const kanbanColumnMetadata = {
   todo: {
     label: "To Do",
@@ -119,6 +128,24 @@ const toolCards = [
     name: "Pomodoro Companion",
     description: "Run a focus sprint, log the work, and keep the team tempo steady.",
     badge: "Productivity"
+  }
+];
+
+const competitorHighlights = [
+  {
+    name: "Signal Weekly",
+    focus: "Signals",
+    insight: "Machine-curated digests that lack the follow-up tooling to act on the story."
+  },
+  {
+    name: "IdeaGrid",
+    focus: "Discovery",
+    insight: "Structured templates highlight ideas but stop short of showing operational readiness."
+  },
+  {
+    name: "LaunchDeck",
+    focus: "Execution",
+    insight: "Transactional dashboards track launches, yet they don’t weave in the news + utility story like we do."
   }
 ];
 
@@ -631,7 +658,12 @@ export default function Home() {
                 Stage
                 <select
                   value={formState.stage}
-                  onChange={(event) => setFormState((current) => ({ ...current, stage: event.target.value }))}
+                  onChange={(event) =>
+                    setFormState((current) => ({
+                      ...current,
+                      stage: event.target.value as StageKey
+                    }))
+                  }
                   className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white outline-none focus:border-cyan-300"
                 >
                   {stageOrder.map((stage) => (
