@@ -1,6 +1,13 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 
 type IdeaRecord = {
   id: number;
@@ -62,7 +69,6 @@ const stageMetadata = {
 } as const;
 
 const stageOrder = ["new", "validate", "build", "launch"] as const;
-
 type StageKey = (typeof stageOrder)[number];
 
 type FormState = {
@@ -75,15 +81,15 @@ type FormState = {
 const kanbanColumnMetadata = {
   todo: {
     label: "To Do",
-    description: "Fresh items waiting for signals and prioritization."
+    description: "Fresh signals waiting for prioritization."
   },
   in_progress: {
     label: "In Progress",
-    description: "Work currently in motion or being investigated."
+    description: "Work with active momentum and live updates."
   },
   done: {
     label: "Done",
-    description: "Completed work powering the IdeaFleck story."
+    description: "Completed ideas fueling future dispatches."
   }
 } as const;
 
@@ -201,7 +207,12 @@ export default function Home() {
   const [ideas, setIdeas] = useState<IdeaRecord[]>([]);
   const [loadingIdeas, setLoadingIdeas] = useState(false);
   const [ideaStatus, setIdeaStatus] = useState<string | null>(null);
-  const [formState, setFormState] = useState<FormState>({ title: "", description: "", domain: "", stage: "new" });
+  const [formState, setFormState] = useState<FormState>({
+    title: "",
+    description: "",
+    domain: "",
+    stage: "new"
+  });
   const [pending, setPending] = useState(false);
   const [statusSnapshot, setStatusSnapshot] = useState<StatusSnapshot | null>(null);
   const [statusLoading, setStatusLoading] = useState(false);
@@ -329,28 +340,31 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-10">
-        <section className="rounded-3xl bg-gradient-to-br from-slate-900/60 to-slate-800/30 p-8 shadow-2xl shadow-cyan-950/40 backdrop-blur border border-white/10">
+        <section className="rounded-3xl bg-gradient-to-br from-slate-900/70 via-slate-900/60 to-slate-800/30 p-8 shadow-2xl shadow-cyan-950/40 backdrop-blur border border-white/10">
           <p className="text-xs uppercase tracking-[0.5em] text-cyan-200/70">IdeaFleck Daily Dispatch</p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-white md:text-5xl">
-            Global news briefs + lightweight mini tools for builders who move fast.
+            IdeaFleck Daily Dispatch is your newsroom + micro tools signal for builders racing ahead of the latest UI summary.
           </h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-300">
-            IdeaFleck curates the freshest global stories, highlights what’s happening on X + tech, and pairs them
-            with simple, AI-powered utilities so your team can act immediately.
+            We weave curated briefs, micro utilities, and live status telemetry so your idea pipeline stays aligned to the day’s story.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 text-sm">
-            <span className="rounded-full border border-white/20 px-4 py-1 text-slate-200">Global news room</span>
-            <span className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-4 py-1 text-emerald-200">Mini tools hub</span>
-            <span className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-1 text-cyan-200">Idea intelligence stack</span>
+            <span className="rounded-full border border-white/20 px-4 py-1 text-slate-200">Global newsroom</span>
+            <span className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-4 py-1 text-emerald-200">Micro tools</span>
+            <span className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-1 text-cyan-200">Live Kanban</span>
           </div>
         </section>
 
-        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-900/40 p-6 shadow-lg shadow-black/40 lg:grid-cols-2">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-slate-400">Global newsroom</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">Real stories, fast summaries</h2>
-            <p className="mt-2 text-slate-400">We surface the big news, technology shifts, and research notes you need to prioritize decisions.</p>
-            <div className="mt-4 space-y-3">
+        <section className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+          <article className="rounded-3xl border border-white/10 bg-slate-900/50 p-6 shadow-lg shadow-black/40">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Newsroom</p>
+                <h2 className="mt-1 text-3xl font-semibold text-white">Live briefs from the IdeaFleck Daily Dispatch</h2>
+              </div>
+              <p className="text-xs text-slate-500">Latest UI summary in focus</p>
+            </div>
+            <div className="mt-6 grid gap-4">
               {newsroomStories.map((story) => (
                 <article key={story.title} className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4 text-sm text-slate-200">
                   <p className="text-xs uppercase tracking-[0.4em] text-slate-400">{story.label}</p>
@@ -363,13 +377,17 @@ export default function Home() {
                 </article>
               ))}
             </div>
-          </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-slate-400">Mini tools hub</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">Instant utilities</h2>
-            <div className="mt-4 space-y-3">
+          </article>
+
+          <article className="space-y-4 rounded-3xl border border-white/10 bg-slate-900/40 p-6 shadow-lg shadow-black/40">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Micro tools</p>
+              <h2 className="mt-1 text-3xl font-semibold text-white">Mini utilities for the dispatch crew</h2>
+              <p className="mt-1 text-sm text-slate-400">Micro tools inspired by the latest signals keep the team nimble.</p>
+            </div>
+            <div className="space-y-3">
               {toolCards.map((tool) => (
-                <article key={tool.name} className="rounded-2xl border border-slate-800 bg-slate-950/40 p-4 text-sm text-slate-100">
+                <article key={tool.name} className="rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
                     <span>{tool.badge}</span>
                     <span className="text-white font-semibold">{tool.name}</span>
@@ -378,49 +396,15 @@ export default function Home() {
                 </article>
               ))}
             </div>
-          </div>
+          </article>
         </section>
 
-        <section className="grid gap-6 rounded-2xl border border-white/10 bg-slate-900/60 p-6 shadow-lg shadow-black/50 md:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-semibold text-white">Competitor signals & differentiators</h2>
-            <p className="mt-2 text-slate-400">
-              The market is crowded with structured innovation platforms. IdeaFleck pairs story-driven capture with a
-              newsroom + tools stack to stay ahead.
-            </p>
-            <div className="mt-4 space-y-3">
-              {competitorHighlights.map((competitor) => (
-                <article key={competitor.name} className="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-slate-200">
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">{competitor.focus}</p>
-                  <h3 className="mt-1 text-lg font-semibold text-white">{competitor.name}</h3>
-                  <p className="mt-1 text-sm text-slate-300">{competitor.insight}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col justify-between gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-4">
-            {stageTotals.map(({ stage, label, count }) => (
-              <div key={stage} className="space-y-1">
-                <div className="flex items-center justify-between text-sm text-slate-400">
-                  <span>{label}</span>
-                  <span className="text-base font-semibold text-white">{count}</span>
-                </div>
-                <div className="h-2 rounded-full bg-slate-800">
-                  <div
-                    className={`h-full rounded-full ${stageMetadata[stage].accent}`}
-                    style={{ width: `${Math.min(100, count * 25)}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-6 rounded-2xl border border-white/10 bg-slate-900/60 p-6 shadow-lg shadow-black/50">
-          <div className="flex items-center justify-between">
+        <section className="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-lg shadow-black/50">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/70">Agent progress</p>
-              <h2 className="text-2xl font-semibold text-white">Kanban board & cron health</h2>
+              <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/70">Live status</p>
+              <h2 className="text-3xl font-semibold text-white">Kanban progress + cron health</h2>
+              <p className="text-sm text-slate-400">Polling <span className="text-slate-100">/api/status</span> every {REFRESH_INTERVAL_MS / 1000}s to keep the story current.</p>
             </div>
             <div className="text-xs uppercase tracking-[0.3em] text-slate-400">
               {statusSnapshot ? (
@@ -429,14 +413,14 @@ export default function Home() {
                   <span className="block text-white">{formatDateTime(statusSnapshot.refreshedAt)}</span>
                 </>
               ) : (
-                <span className="text-white">Awaiting updates…</span>
+                <span className="text-white">Waiting for polled data…</span>
               )}
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="mt-6 space-y-4">
             <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
-              <span>Progress</span>
+              <span>Kanban progress</span>
               <span>{kanbanProgress}% complete</span>
             </div>
             <div className="h-2 rounded-full bg-slate-800">
@@ -447,11 +431,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-sm font-semibold text-slate-300">
+          <div className="mt-3 flex items-center justify-between text-sm font-semibold text-slate-300">
             <p>
               {kanbanTotal} task{kanbanTotal === 1 ? "" : "s"} tracked
             </p>
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Updated every {REFRESH_INTERVAL_MS / 1000}s</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Updated while polling /api/status</p>
           </div>
 
           {statusLoading && !statusSnapshot ? (
@@ -459,13 +443,15 @@ export default function Home() {
           ) : statusError ? (
             <p className="py-6 text-center text-slate-400">{statusError}</p>
           ) : (
-            <>
+            <div className="mt-6 space-y-6">
               <div className="grid gap-4 md:grid-cols-3">
                 {kanbanColumnKeys.map((key) => (
                   <div key={key} className="rounded-2xl border border-white/5 bg-slate-950/40 p-4">
                     <div className="mb-3 flex items-start justify-between gap-2 text-white">
                       <div>
-                        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{kanbanColumnMetadata[key].label}</p>
+                        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                          {kanbanColumnMetadata[key].label}
+                        </p>
                         <p className="text-xs text-slate-400">{kanbanColumnMetadata[key].description}</p>
                       </div>
                       <span className="text-sm font-semibold text-white">{kanbanColumns[key].length}</span>
@@ -525,7 +511,9 @@ export default function Home() {
                       <h3 className="text-lg font-semibold text-white">Automation watchdogs</h3>
                     </div>
                     <span
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.3em] ${cronBadgeStyles[cronSnapshot?.statusLabel ?? "ok"] ?? cronBadgeStyles.ok}`}
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.3em] ${
+                        cronBadgeStyles[cronSnapshot?.statusLabel ?? "ok"] ?? cronBadgeStyles.ok
+                      }`}
                     >
                       {cronBadgeLabel[cronSnapshot?.statusLabel ?? "ok"] ?? "Healthy"}
                     </span>
@@ -549,7 +537,11 @@ export default function Home() {
                               <p className="text-base font-semibold text-white">{job.name}</p>
                               <p className="text-xs text-slate-500">{job.scheduleExpression ?? "Scheduled run"}</p>
                             </div>
-                            <span className={`rounded-full border px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] ${normalizeCronTone(job.lastStatus)}`}>
+                            <span
+                              className={`rounded-full border px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] ${
+                                normalizeCronTone(job.lastStatus)
+                              }`}
+                            >
                               {job.lastStatus}
                             </span>
                           </div>
@@ -565,8 +557,32 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           )}
+        </section>
+
+        <section className="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-lg shadow-black/50">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/70">Competitive lens</p>
+              <h2 className="text-3xl font-semibold text-white">Where IdeaFleck Daily Dispatch stands apart</h2>
+            </div>
+            <p className="text-sm text-slate-400 max-w-sm">
+              News, micro tools, and live ops telemetry combine to keep builders ahead of platforms that stop at surveillance.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {competitorHighlights.map((competitor) => (
+              <article
+                key={competitor.name}
+                className="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-slate-200"
+              >
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">{competitor.focus}</p>
+                <h3 className="mt-1 text-lg font-semibold text-white">{competitor.name}</h3>
+                <p className="mt-1 text-sm text-slate-300">{competitor.insight}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
@@ -607,7 +623,9 @@ export default function Home() {
                     <p className="mt-2 text-sm text-slate-300">{idea.description}</p>
                     <footer className="mt-4 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
                       <span>{idea.domain}</span>
-                      <span>{idea.votes} vote{idea.votes === 1 ? "" : "s"}</span>
+                      <span>
+                        {idea.votes} vote{idea.votes === 1 ? "" : "s"}
+                      </span>
                     </footer>
                   </article>
                 ))}
@@ -627,7 +645,9 @@ export default function Home() {
                 <input
                   required
                   value={formState.title}
-                  onChange={(event) => setFormState((current) => ({ ...current, title: event.target.value }))}
+                  onChange={(event) =>
+                    setFormState((current) => ({ ...current, title: event.target.value }))
+                  }
                   className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white outline-none focus:border-cyan-300"
                 />
               </label>
@@ -659,10 +679,7 @@ export default function Home() {
                 <select
                   value={formState.stage}
                   onChange={(event) =>
-                    setFormState((current) => ({
-                      ...current,
-                      stage: event.target.value as StageKey
-                    }))
+                    setFormState((current) => ({ ...current, stage: event.target.value as StageKey }))
                   }
                   className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white outline-none focus:border-cyan-300"
                 >
