@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const db = require("./db");
+const { getKanbanSnapshot } = require("./kanban");
+const { getStatusSnapshot } = require("./status");
 
 const PORT = parseInt(process.env.PORT, 10) || 4000;
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000").split(",").map((origin) => origin.trim()).filter(Boolean);
@@ -35,6 +37,26 @@ app.get("/api/ideas", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/kanban", async (req, res) => {
+  try {
+    const snapshot = await getKanbanSnapshot();
+    res.json(snapshot);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to load Kanban status" });
+  }
+});
+
+app.get("/api/status", async (req, res) => {
+  try {
+    const snapshot = await getStatusSnapshot();
+    res.json(snapshot);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message || "Unable to load status" });
   }
 });
 

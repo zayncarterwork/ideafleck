@@ -38,11 +38,10 @@ IdeaFleck is an idea-management reference board built with a **Next.js** front-e
 - See `docs/deployment.md` for Render deployment instructions and `render.yaml` with placeholder service URLs.
 - After pushing to GitHub, import `render.yaml` from Render, update the environment variables (`NEXT_PUBLIC_API_BASE_URL`, `ALLOWED_ORIGINS`), and deploy the two services.
 
-## Documentation
-- `docs/competitor-research.md` — competitor research notes.
-- `docs/stack-plan.md` — architecture intent and data flows.
-- `docs/deployment.md` — Render-specific guidance.
-- `docs/sprint-summary.md` — Sprint 1 worklog, tests, and deployment readiness recap.
+## Kanban board & Telegram hook
+- `/api/kanban` now surfaces the shared tasks stored in `scripts/kanban_status.json`, and the front-end renders To Do/In Progress/Done columns so every sprint stays transparent.
+- Run `python3 scripts/kanban_command.py` (or wire it into a cron/automation) to let the Telegram bot answer `/kanban` with the latest tasks per column.
+- The same status file fuels the sprint progress bar on the landing page so the web and chat summaries always align.
 
 ## Next Steps
 - Wire user stories to idea stages (validation, build, launch) via webhooks or internal automation.
